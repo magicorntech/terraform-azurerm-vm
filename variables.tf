@@ -21,3 +21,13 @@ variable "username" {}
 variable "key_data" {}
 variable "data_disks" {}
 variable "security_rule" {}
+
+variable "plan" {
+  description = "Marketplace plan info for images that require accepting legal terms (e.g. Rocky Linux/resf). Leave null for images that don't need a plan (e.g. Canonical, Debian, MicrosoftWindowsServer)."
+  type = object({
+    name      = string
+    product   = string
+    publisher = string
+  })
+  default = null
+}

@@ -4,7 +4,7 @@ resource "azurerm_public_ip" "main" {
   resource_group_name = var.rg_name
   location            = var.rg_location
   allocation_method   = "Static"
-  sku                 = (var.az != null) ? "Standard" : "Basic"
+  sku                 = "Standard" # Basic SKU public IPs can no longer be created (retired 2025-03-31)
   zones               = (var.az != null) ? [var.az] : null
 
   tags = {

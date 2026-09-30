@@ -15,6 +15,15 @@ resource "azurerm_virtual_machine" "main" {
     version   = var.image_version
   }
 
+  dynamic "plan" {
+    for_each = var.plan != null ? [var.plan] : []
+    content {
+      name      = plan.value.name
+      product   = plan.value.product
+      publisher = plan.value.publisher
+    }
+  }
+
   storage_os_disk {
     name              = "${var.tenant}-${var.name}-vm-osdisk-${var.vm_name}-${var.environment}"
     caching           = var.caching

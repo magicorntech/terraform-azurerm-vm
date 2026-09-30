@@ -5,7 +5,7 @@ Magicorn made Terraform Module for Azure Provider
 ```
 module "vm-nginx" {
   source      = "magicorntech/vm/azurerm"
-  version     = "0.0.1"
+  version     = "0.0.2"
   tenant      = var.tenant
   name        = var.name
   environment = var.environment
@@ -76,6 +76,15 @@ module "vm-nginx" {
       destination_address_prefix = "*"
     }
   ]
+
+  # Optional: only required for Marketplace images that need legal terms
+  # accepted (e.g. Rocky Linux/resf). Must be paired with an
+  # azurerm_marketplace_agreement resource for the same publisher/offer/plan.
+  # plan = {
+  #   name      = "9-base"
+  #   product   = "rockylinux-x86_64"
+  #   publisher = "resf"
+  # }
 }
 
 ```

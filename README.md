@@ -5,7 +5,7 @@ Magicorn made Terraform Module for Azure Provider
 ```
 module "vm-nginx" {
   source      = "magicorntech/vm/azurerm"
-  version     = "0.0.2"
+  version     = "0.0.4"
   tenant      = var.tenant
   name        = var.name
   environment = var.environment
@@ -14,12 +14,14 @@ module "vm-nginx" {
   subnet      = module.network.pbl_subnet_ids[0]
 
   # VM Configuration
-  vm_name      = "nginx"
-  vm_size      = "Standard_B1ms"
-  az           = null
-  create_pblip = true
-  username     = "ubuntu"
-  key_data     = "ssh-rsa PUBLIC_KEY"
+  vm_name                       = "nginx"
+  vm_size                       = "Standard_B1ms"
+  az                            = null
+  create_pblip                  = true
+  # Optional; defaults to false when omitted or null.
+  enable_accelerated_networking = false
+  username                      = "ubuntu"
+  key_data                      = "ssh-rsa PUBLIC_KEY"
 
   ##### Disk Configuration
   # Base Image
@@ -34,7 +36,16 @@ module "vm-nginx" {
   caching      = "ReadWrite"
 
   # Data Disk Configuration
-  data_disks = {}
+  data_disks = {
+    # Optional Premium SSD v2 settings; omitted/null uses Azure defaults.
+    data1 = {
+      disk_type             = "PremiumV2_LRS"
+      disk_size             = 512
+      disk_cache            = "None"
+      disk_iops_read_write  = 3000
+      disk_mbps_read_write  = 125
+    }
+  }
 
   # Misc
   delete_os_disk_on_termination    = true

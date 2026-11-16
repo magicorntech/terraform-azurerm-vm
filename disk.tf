@@ -5,6 +5,8 @@ resource "azurerm_managed_disk" "main" {
   location             = var.rg_location
   storage_account_type = each.value.disk_type
   disk_size_gb         = each.value.disk_size
+  disk_iops_read_write = try(each.value.disk_iops_read_write, null)
+  disk_mbps_read_write = try(each.value.disk_mbps_read_write, null)
   create_option        = "Empty"
   zone                 = (var.az != null) ? var.az : null
 

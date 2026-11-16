@@ -18,9 +18,10 @@ resource "azurerm_public_ip" "main" {
 }
 
 resource "azurerm_network_interface" "main" {
-  name                = "${var.tenant}-${var.name}-vm-nic-${var.vm_name}-${var.environment}"
-  resource_group_name = var.rg_name
-  location            = var.rg_location
+  name                           = "${var.tenant}-${var.name}-vm-nic-${var.vm_name}-${var.environment}"
+  resource_group_name            = var.rg_name
+  location                       = var.rg_location
+  accelerated_networking_enabled = var.enable_accelerated_networking
 
   ip_configuration {
     name                          = "nic1"

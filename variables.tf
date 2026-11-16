@@ -10,6 +10,12 @@ variable "delete_os_disk_on_termination" {}
 variable "delete_data_disks_on_termination" {}
 variable "az" {}
 variable "create_pblip" {}
+variable "enable_accelerated_networking" {
+  description = "Enable accelerated networking on the VM network interface; defaults to false when omitted or null."
+  type        = bool
+  default     = false
+  nullable    = false
+}
 variable "publisher" {}
 variable "offer" {}
 variable "sku" {}
